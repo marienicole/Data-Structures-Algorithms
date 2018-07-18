@@ -1,5 +1,6 @@
 class Tree():
-    def __init__(self, data, left=None, right=None):
+    def __init__(self, data, parent, left=None, right=None):
+        self.parent = parent
         self.left = left
         self.right = right
         self.data = data
@@ -13,42 +14,38 @@ class Tree():
     def set_right(self, right):
         self.right = right
 
+    def get_parent(self):
+        return self.parent
+
     def get_data(self):
         return self.data
 
+    def get_left(self):
+        return self.left
+
+    def get_right(self):
+        return self.right
+
     def add_child(self, node_data):
         if (self.left == None):
-            print "\n\tadding left node"
-            self.left = Tree(node_data)
+            self.left = Tree(node_data, self)
+            print "\n" + str(node_data) + " was added as left child of " + str(self.data)
             return self
 
         elif (self.right == None):
-            print "\n\tadding right node"
-            self.right = Tree(node_data)
+            self.right = Tree(node_data, self)
+            print "\n" + str(node_data) + " was added as right child of " + str(self.data)
             return self.left
-
 
 
 
 def usage():
     print "\n\t1: Add a new node"
-    print "\t2: Print the Tree"
-    print "\t3: Exit\n"
+    print "\t2: Exit\n"
     choice = input("Please Enter Your Choice: ")
     return choice
 
 # TODO: currently only prints the most recent left node
-
-def print_tree(node):
-    if (node.left == None and node.right == None): # no left or right node, we just return data
-        print(str(node.get_data()) + "\n")
-
-    elif (node.left != None): # left node exists, recurse with left
-        return print_tree(node.left)
-
-    elif (node.right != None): # we've already been through the left nodes
-        return print_tree(node.right)
-
 
 def get_input():
     node_data = input("Please Enter a New Node: ")
@@ -60,20 +57,19 @@ def main():
     global root
     global current
 
+    level = 0
     node_data = input("Please Enter a New Node: ")
-    tree = Tree(node_data)
+    tree = Tree(node_data, None)
     root = tree
-    current = root
+    current = tree
 
     choice = 1
-    while (choice != 3):
+    while (choice != 2):
         choice = int(usage())
 
-        if (choice == 1):
+        if (choice == 1): # add node
             data = get_input()
             current = current.add_child(data)
 
-        elif (choice == 2):
-            print_tree(tree)
 
 main()
