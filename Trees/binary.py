@@ -1,75 +1,71 @@
-class Tree():
-    def __init__(self, data, parent, left=None, right=None):
+class Node():
+    def __init__(self, data, parent=None, left=None, right=None):
+#        self.level = level
         self.parent = parent
         self.left = left
         self.right = right
         self.data = data
 
-    def set_data(self, data):
-        self.data = data
+    def left_child(self):
+        return self.left
+
+    def right_child(self):
+        return self.right
+
+    def parent(self):
+        return self.parent
+
+    def get_data(self):
+        return self.data
 
     def set_left(self, left):
         self.left = left
 
     def set_right(self, right):
         self.right = right
-
-    def get_parent(self):
-        return self.parent
-
-    def get_data(self):
-        return self.data
-
-    def get_left(self):
-        return self.left
-
-    def get_right(self):
-        return self.right
-
-    def add_child(self, node_data):
-        if (self.left == None):
-            self.left = Tree(node_data, self)
-            print "\n" + str(node_data) + " was added as left child of " + str(self.data)
-            return self
-
-        elif (self.right == None):
-            self.right = Tree(node_data, self)
-            print "\n" + str(node_data) + " was added as right child of " + str(self.data)
-            return self.left
+    # def add_child(self, node_data):
+    #     if (self.left == None):
+    #         self.left = Tree(node_data, self)
+    #
+    #     elif (self.right == None):
+    #         self.right = Tree(node_data, self)
 
 
+class Tree():
+    def __init__(self, root=None):
+        self.root = root
+        nodes = {}
+        if self.root:
+            nodes.append(root, root.get_data())
+        # dictionary of nodes
+        # insert each new node in respective place
+        # shift others accordingly
 
-def usage():
-    print "\n\t1: Add a new node"
-    print "\t2: Exit\n"
-    choice = input("Please Enter Your Choice: ")
-    return choice
 
-# TODO: currently only prints the most recent left node
+    def get_root(self):
+        return self.root
 
-def get_input():
-    node_data = input("Please Enter a New Node: ")
-    return int(node_data)
+    def add_node(self, data, parent):
+
+        if parent.right_node(): # if parent already has two nodes
+            print "Error: Node already has two children\n"
+
+        elif not parent.left_child(): # if no left node has been set
+            new = Node(data, parent)
+            parent.set_left(node)
+            print str(new.data) + " is the left child of " + str(parent.data)
+
+        elif not parent.right_child(): # if parent has no right node
+            new = Node(data, parent)
+            parent.set_right(node)
+            print str(new.data) + " is the right child of " + str(parent.data)
+
+        else:
+            print "Unknown error, sorry bout it i guess\n"
+
 
 
 def main():
-    global tree
-    global root
-    global current
-
-    level = 0
-    node_data = input("Please Enter a New Node: ")
-    tree = Tree(node_data, None)
-    root = tree
-    current = tree
-
-    choice = 1
-    while (choice != 2):
-        choice = int(usage())
-
-        if (choice == 1): # add node
-            data = get_input()
-            current = current.add_child(data)
 
 
 main()
