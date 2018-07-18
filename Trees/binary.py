@@ -1,10 +1,10 @@
 class Node():
-    def __init__(self, data, parent=None, left=None, right=None):
-#        self.level = level
+    def __init__(self, data, level, parent=None, left=None, right=None):
+        self.data = data
+        self.level = level
         self.parent = parent
         self.left = left
         self.right = right
-        self.data = data
 
     def left_child(self):
         return self.left
@@ -12,11 +12,14 @@ class Node():
     def right_child(self):
         return self.right
 
-    def parent(self):
+    def get_parent(self):
         return self.parent
 
     def get_data(self):
         return self.data
+        
+    def get_leve(self):
+        return self.level
 
     def set_left(self, left):
         self.left = left
