@@ -17,8 +17,8 @@ class Node():
 
     def get_data(self):
         return self.data
-        
-    def get_leve(self):
+
+    def get_level(self):
         return self.level
 
     def set_left(self, left):
@@ -26,24 +26,15 @@ class Node():
 
     def set_right(self, right):
         self.right = right
-    # def add_child(self, node_data):
-    #     if (self.left == None):
-    #         self.left = Tree(node_data, self)
-    #
-    #     elif (self.right == None):
-    #         self.right = Tree(node_data, self)
 
 
 class Tree():
     def __init__(self, root=None):
+        self.current_level = 0
         self.root = root
-        nodes = {}
+#        nodes = {}
         if self.root:
-            nodes.append(root, root.get_data())
-        # dictionary of nodes
-        # insert each new node in respective place
-        # shift others accordingly
-
+            self.current_level = 1
 
     def get_root(self):
         return self.root
