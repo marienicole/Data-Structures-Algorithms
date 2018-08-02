@@ -1,10 +1,12 @@
 # Implementation of quicksort in Python.
-# Time Complexity:
+# Time Complexity: O(n logn), though it degrades to O(n^2) on a sorted array
 
 # Quicksort is a divide-and-conquer method.
 # Divide (or partition) array (list) into two parts, sort each independently.
+# This uses the Lomuto partitioning scheme, meaning that the pivot begins as the
+# last element in the array.
 
-
+small = [1, 6, 7, 23, 44, 2, 8, 15]
 array1 = [1533, 19, 368, 1079, 114, 448, 1376, 1731, 300, 1870, 1114, 193, 85,
           743, 1619, 1476, 1667, 1054, 1522, 1104, 1474, 587, 1411, 906, 1527,
           1117, 1391, 755, 520, 348, 1746, 1066, 511, 1231, 662, 1407, 137, 389,
@@ -53,34 +55,33 @@ array3 = [1787, 1855, 1273, 1942, 1704, 1374, 915, 1795, 1761, 510, 1702, 669,
           1963, 976, 1671, 435, 103, 1837, 1298]
 
 def quicksort(array, low, high):
+    print(array)
     if low < high:
-        pivot = partition(array, low, high)
-        quicksort(array, low, pivot-1)
-        quicksort(array, pivot+1, high)
+        p = partition(array, low, high)
+        quicksort(array, low, (p-1))
+        quicksort(array, (p+1), high)
 
 
 def partition(array, low, high):
     pivot = array[high]
     i = low - 1
 
-    for j in range(low, high-1):
-        if array[j] < pivot:
+    for j in range(low, high):
+        if (array[j] < pivot):
             i += 1
-            swap(array, i, j)
+            swap(array, j, i)
 
-    swap(array, i+1, high)
+        swap(array, i+1, high)
+    return (i+1)
 
-    return i+1
-
-def swap(array, i, j):
-    temp = array[i]
-    array[i] = array[j]
-    array[j] = temp
-
+def swap(array, first, second):
+    temp = array[first]
+    array[first] = array[second]
+    array[second] = temp
 
 
 def main():
-    quicksort(array1, 0, len(array1)-1)
-    print(array1)
+    quicksort(small, 0, len(small)-1)
+    print(small)
 
 main()
