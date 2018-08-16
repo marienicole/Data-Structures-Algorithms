@@ -1,5 +1,5 @@
 class Node():
-    def __init__(self, data, level, parent=None, left=None, right=None):
+    def __init__(self, data, level=0, parent=None, left=None, right=None):
         self.data = data
         self.level = level
         self.parent = parent
@@ -32,7 +32,6 @@ class Tree():
     def __init__(self, root=None):
         self.current_level = 0
         self.root = root
-#        nodes = {}
         if self.root:
             self.current_level = 1
 
@@ -48,11 +47,13 @@ class Tree():
             new = Node(data, parent)
             parent.set_left(node)
             print str(new.data) + " is the left child of " + str(parent.data)
+            return new
 
         elif not parent.right_child(): # if parent has no right node
             new = Node(data, parent)
             parent.set_right(node)
             print str(new.data) + " is the right child of " + str(parent.data)
+            return new
 
         else:
             print "Unknown error, sorry bout it i guess\n"
@@ -61,5 +62,16 @@ class Tree():
 
 def main():
 
+    input = input("Please enter a root node > ")
+    tree = Tree(Node(input, 0))
+    current = tree.get_root()
+
+    while(choice != 1):
+        print("Please choose from the list >")
+        print("\t0: Enter a new Node\n\t1: Exit")
+        if choice != 1:
+            input = get_input()
+            choice = int(input("Please enter a node value >"))
+            current = tree.add_node(choice, current)
 
 main()
